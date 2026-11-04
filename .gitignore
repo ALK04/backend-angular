@@ -1,0 +1,30 @@
+# Le frontend a son propre dépôt (ALK04/Angular-frontend), cloné dans ce dossier
+/frontend-angular/
+
+# Secrets : chaîne de connexion Supabase
+appsettings.Local.json
+.env
+.env.*
+!.env.example
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# IDE
+.idea/
+.vs/
+.vscode/
+
+# Node (templates)
+node_modules/
+dist/
+
+# Claude Code (réglages locaux)
+.claude/
+
+# Système
+.DS_Store
+Thumbs.db
