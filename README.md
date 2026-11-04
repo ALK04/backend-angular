@@ -84,3 +84,11 @@ npm start
 
 - `appsettings.Local.json` (mot de passe Supabase)
 - tout fichier `.env` (seuls les `.env.example` sont versionnés)
+
+## Keep-alive Supabase (GitHub Action)
+
+Le plan gratuit de Supabase met la base en pause après 7 jours sans activité. Le workflow `.github/workflows/supabase-keepalive.yml` exécute une requête SQL **tous les 3 jours**.
+
+- Il a besoin du secret **`SUPABASE_DB_PASSWORD`** (GitHub → *Settings → Secrets and variables → Actions*).
+- Test manuel : onglet **Actions** → *Supabase keep-alive* → **Run workflow**.
+- ⚠️ GitHub désactive les workflows planifiés d'un dépôt sans commit depuis 60 jours : il faut alors le réactiver depuis l'onglet Actions (GitHub envoie un mail avant).

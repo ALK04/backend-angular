@@ -1,0 +1,31 @@
+# Garde le projet Supabase actif : le plan gratuit met la base en pause
+# après 7 jours sans activité. On exécute une vraie requête SQL tous les 3 jours.
+#
+# Secret requis (GitHub → Settings → Secrets and variables → Actions) :
+#   SUPABASE_DB_PASSWORD = le mot de passe de la base (le même que dans appsettings.Local.json)
+
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "0 8 */3 * *"   # tous les 3 jours à 08:00 UTC
+  workflow_dispatch:         # bouton « Run workflow » pour tester à la main
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Requête sur la base Supabase
+        env:
+          PGHOST: aws-0-eu-west-1.pooler.supabase.com
+          PGPORT: "5432"
+          PGDATABASE: postgres
+          PGUSER: postgres.iymmlldrivijreujkxem
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          PGSSLMODE: require
+        run: |
+          if [ -z "$PGPASSWORD" ]; then
+            echo "::error::Secret SUPABASE_DB_PASSWORD manquant"
+            exit 1
+          fi
+          psql -v ON_ERROR_STOP=1 -c "SELECT count(*) AS modules FROM catalogue_modules;"
