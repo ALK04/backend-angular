@@ -22,7 +22,7 @@ Monorepo avec un backend ASP.NET Core et un frontend Angular, reliés à une bas
     - `Program.cs` — config des services, CORS, endpoints. Applique les migrations au démarrage (`db.Database.Migrate()`).
     - `AppDbContext.cs` — DbContext EF Core + entités (entité `Statistique`)
     - `Migrations/` — migrations EF Core (source de vérité du schéma)
-    - `appsettings.json` — chaîne de connexion Supabase
+    - `appsettings.Local.json` — chaîne de connexion Supabase (**non versionné**, chargé par `Program.cs`). Sur un nouveau poste : copier `appsettings.Local.example.json` et y mettre le mot de passe.
     - EF Core 9.0.2 + provider `Npgsql.EntityFrameworkCore.PostgreSQL` 9.0.4 ; package `Microsoft.EntityFrameworkCore.Design` présent.
   - `.mcp.json` — serveur MCP Supabase (voir note plus bas)
 - `frontend-angular/` — frontend Angular 22 (standalone components, signals)
@@ -37,6 +37,11 @@ Monorepo avec un backend ASP.NET Core et un frontend Angular, reliés à une bas
   - `src/app/app.routes.ts` — routes
   - `src/app/app.config.ts` — providers (router, HttpClient)
   - **Flux Composer** (`src/app/features/composer/`) — voir section dédiée ci-dessous.
+
+## Dépôts git
+
+- `RiderProjects/` (backend + `templates/` + `CLAUDE.md`) → `github.com/ALK04/backend-angular` ; `frontend-angular/` y est ignoré.
+- `frontend-angular/` → `github.com/ALK04/Angular-frontend` (dépôt séparé, cloné dans `RiderProjects/frontend-angular`).
 
 ## Lancer les apps
 
